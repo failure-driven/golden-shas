@@ -1,5 +1,14 @@
 # README
 
+## TL;DR
+
+```sh
+make
+make setup
+```
+
+## Old README
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

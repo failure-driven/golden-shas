@@ -24,4 +24,5 @@ AllCops:
   Exclude:
     - tmp/**/*
     - vendor/**/*
+    - Brewfile
 

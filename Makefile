@@ -14,7 +14,25 @@ APP_REVISION    = $(shell git rev-parse HEAD)
 
 .PHONY: install
 install:
+	brew bundle
 	bundle install
+
+config/master.key:
+	@bw status | jq '.status=="unauthenticated"' | \
+		awk '/true/ { exit 1 }' && \
+		echo "signed in to ${GREEN}Bitwarden${NC}" || \
+		{ \
+		echo "need to be signed into ${YELLOW}Bitwarden${NC}"; \
+		echo "with ${RED}bw login${NC}"; \
+		exit 1; \
+		}
+	bw get item ba68ca45-54ed-474e-9e38-b0a8005069aa | \
+		jq --raw-output '.login.password' > config/master.key
+	# probably setting RAILS_MASTER_KEY would be better than writing it to
+	# a file
+
+.PHONY: setup
+setup: install config/master.key
 
 .PHONY: run
 run:
@@ -38,6 +56,12 @@ lint-checkonly:
 
 .PHONY: ci
 ci: lint-checkonly
+
+.PHONY: clean
+clean:
+	# file -f config/master.key
+	@rm config/master.key || \
+		echo 'config/master.key already removed'
 
 .PHONY: usage
 usage:
