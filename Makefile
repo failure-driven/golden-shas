@@ -16,6 +16,7 @@ APP_REVISION    = $(shell git rev-parse HEAD)
 install:
 	brew bundle
 	bundle install
+	yarn
 
 config/master.key:
 	@bw status | jq '.status=="unauthenticated"' | \
@@ -36,6 +37,9 @@ setup: install config/master.key
 
 .PHONY: test
 test:
+	yarn
+	yarn build
+	yarn build:css
 	bundle exec rspec
 
 .PHONY: run

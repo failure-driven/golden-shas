@@ -8,6 +8,5 @@ Rails.application.routes.draw do
   # a test only route used by spec/features/it_works_spec.rb
   get "test_root", to: "rails/welcome#index", as: "test_root_rails"
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root "golden_shas#index"
 end

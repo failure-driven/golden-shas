@@ -1,0 +1,2 @@
+class GoldenShasController < ApplicationController
+end
