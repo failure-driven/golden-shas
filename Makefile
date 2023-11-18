@@ -45,15 +45,17 @@ db-migrate:
 test:
 	yarn build
 	yarn build:css
-	bundle exec rspec
+	bin/rspec
 
 .PHONY: run
 run:
-	bundle exec rails server
+	bin/dev
 
 .PHONY: prod-run
 prod-run:
-	RAILS_ENV=production bundle exec rails server
+	yarn build
+	yarn build:css
+	RAILS_ENV=production bin/rails server
 
 .PHONY: lint-safe
 lint-safe:
