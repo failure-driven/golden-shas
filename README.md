@@ -5,6 +5,10 @@
 ```sh
 make
 make setup
+make ci
+
+# slow down browser tests
+SLOMO_MS=100 make test
 ```
 
 ## Old README
