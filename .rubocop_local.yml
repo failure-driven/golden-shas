@@ -1,5 +1,9 @@
 # any rubocop overrides live in here
 
+Rails:
+  Exclude:
+    - bin/**/*
+
 RSpec/Capybara/FeatureMethods:
   EnabledMethods:
     - feature

@@ -3,6 +3,7 @@
 require:
   - standard
   - rubocop-performance
+  - rubocop-rails
   - rubocop-rspec
 
 # Use the defaults from https://github.com/testdouble/standard
