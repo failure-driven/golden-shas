@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   # a test only route used by spec/features/it_works_spec.rb
   get "test_root", to: "rails/welcome#index", as: "test_root_rails"
 
+  resources :seed, only: :create
+
   root "golden_shas#index"
 end
