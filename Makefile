@@ -14,8 +14,10 @@ APP_REVISION    = $(shell git rev-parse HEAD)
 
 .PHONY: install
 install:
-	brew bundle
-	bundle install
+	@(brew -v && echo "\n\t${GREEN}using brew" `brew -v` "${NC}\n") && \
+		brew bundle || \
+		echo "\n\t${YELLOW}brew not installed${NC}, continuing 🚀\n"
+	bundle
 	yarn
 
 config/master.key:
@@ -35,9 +37,12 @@ config/master.key:
 .PHONY: setup
 setup: install config/master.key
 
+.PHONY: db-migrate
+db-migrate:
+	RAILS_ENV=test bin/rails db:drop db:create db:migrate
+
 .PHONY: test
 test:
-	yarn
 	yarn build
 	yarn build:css
 	bundle exec rspec
@@ -63,7 +68,7 @@ lint-checkonly:
 	bundle exec rubocop
 
 .PHONY: ci
-ci: lint-checkonly test
+ci: install db-migrate lint-checkonly test
 
 .PHONY: clean
 clean:
