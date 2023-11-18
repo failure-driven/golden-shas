@@ -1,0 +1,42 @@
+name: "CI"
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: CI
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        # Docker Hub PostgreSQL image
+        image: postgres:15
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5532:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5532/party_quotes_test
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+
+      - name: builld
+        run: |
+          make ci
