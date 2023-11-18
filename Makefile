@@ -34,6 +34,10 @@ config/master.key:
 .PHONY: setup
 setup: install config/master.key
 
+.PHONY: test
+test:
+	bundle exec rspec
+
 .PHONY: run
 run:
 	bundle exec rails server
@@ -55,7 +59,7 @@ lint-checkonly:
 	bundle exec rubocop
 
 .PHONY: ci
-ci: lint-checkonly
+ci: lint-checkonly test
 
 .PHONY: clean
 clean:
