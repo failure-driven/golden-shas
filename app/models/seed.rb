@@ -1,5 +1,5 @@
 class Seed < ApplicationRecord
   def self.instance(phrase = nil)
-    find_by(id: 1) || phrase && create!(id: 1, phrase: phrase)
+    find_by(id: true) || phrase && create!(id: true, phrase: phrase)
   end
 end
