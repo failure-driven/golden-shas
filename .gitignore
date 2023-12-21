@@ -39,3 +39,4 @@
 
 /node_modules
 rubocop_cache
+Brewfile.lock.json
